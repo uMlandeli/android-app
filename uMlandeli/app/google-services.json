@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "566508586917",
+    "project_id": "umlandeli",
+    "storage_bucket": "umlandeli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566508586917:android:9f14bc468bbe191f15ca4c",
+        "android_client_info": {
+          "package_name": "za.co.umlandeli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566508586917-c4cll6qakq6b7moja7jv7qib6h4jq2fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.umlandeli",
+            "certificate_hash": "3331a76c2271e02c0d3249a2469c3d41b6b16e72"
+          }
+        },
+        {
+          "client_id": "566508586917-7t3j14g65abrm4gbbit153ereghsd9of.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHdRUhf0PS0CTnaqzGZfskBreZmYl4SN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566508586917-7t3j14g65abrm4gbbit153ereghsd9of.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
