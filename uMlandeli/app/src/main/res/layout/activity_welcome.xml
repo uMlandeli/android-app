@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    tools:context=".Welcome">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/welcome_pic"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="Welcome to uMlandeli"
+
+                />
+
+            <Button
+                android:id="@+id/reg_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:layout_marginTop="50dp"
+                android:text="Register"
+                />
+
+            <Button
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:text="Login"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

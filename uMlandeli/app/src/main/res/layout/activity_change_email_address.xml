@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChangeEmailAddress">
+
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cancel_icon"
+        app:tint="#44ad32"/>
+
+
+
+    <LinearLayout
+        android:layout_below="@id/back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:src="@drawable/undraw_Newsletter_" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Email Address"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="Email Address"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxStrokeColor="#44ad32"
+            app:boxStrokeErrorColor="@color/white"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:errorEnabled="false"
+            app:errorTextColor="@color/red"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/edit_24"
+            app:startIconTint="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/changeEmail_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="8dp"
+        android:text="Change email"
+        android:layout_margin="20dp"
+        android:textSize="16sp" />
+
+</RelativeLayout>

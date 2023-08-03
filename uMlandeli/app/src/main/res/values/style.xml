@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+</resources>
