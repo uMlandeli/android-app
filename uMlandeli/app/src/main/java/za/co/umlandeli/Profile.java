@@ -8,8 +8,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,14 +32,14 @@ import za.co.umlandeli.model.ProfilePOJO;
 
 public class Profile extends AppCompatActivity {
 
-    TextInputLayout fname_et, lname_et, email_et,code_et;
+    TextInputLayout fname_et, lname_et, email_et,code_et, school_et;
     Button update_btn, changeEmail_btn, changePassword_btn;
-    ImageView back_btn;
     FirebaseAuth auth;
     DatabaseReference dbref;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
-    String userId;
+    String userId, province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7;
+    ArrayAdapter<CharSequence> provinceAdapter, subj1Adapter, subj2Adapter, subj3Adapter, subj4Adapter, subj5Adapter, subj6Adapter, subj7Adapter;
     Spinner province_spinner, subj_1_spin,subj_2_spin,subj_3_spin,subj_4_spin,subj_5_spin,subj_6_spin,subj_7_spin;
     List<ProfilePOJO> usersList = new ArrayList<>();
 
@@ -54,6 +55,7 @@ public class Profile extends AppCompatActivity {
         lname_et = findViewById(R.id.lname);
         email_et = findViewById(R.id.email);
         code_et = findViewById(R.id.grade);
+        school_et = findViewById(R.id.school_name);
         province_spinner = findViewById(R.id.province_spinner);
         subj_1_spin = findViewById(R.id.subj_1);
         subj_2_spin = findViewById(R.id.subj_2);
@@ -68,6 +70,168 @@ public class Profile extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         dbref = FirebaseDatabase.getInstance().getReference("Users");
         userId = auth.getCurrentUser().getUid();
+
+        //Province Spinner
+        provinceAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.provinces,
+                android.R.layout.simple_spinner_item
+        );
+        provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        province_spinner.setAdapter(provinceAdapter);
+        province_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                province = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 1 Spinner
+        subj1Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_1_spin.setAdapter(subj1Adapter);
+        subj_1_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_1 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        //Subject 2 Spinner
+        subj2Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_2_spin.setAdapter(subj2Adapter);
+        subj_2_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_2 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 3 Spinner
+        subj3Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_3_spin.setAdapter(subj3Adapter);
+        subj_3_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_3 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //Subject 4 Spinner
+        subj4Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj4Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_4_spin.setAdapter(subj4Adapter);
+        subj_4_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_4 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 5 Spinner
+        subj5Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj5Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_5_spin.setAdapter(subj5Adapter);
+        subj_5_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_5 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 6 Spinner
+        subj6Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj6Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_6_spin.setAdapter(subj6Adapter);
+        subj_6_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_6 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 7 Spinner
+        subj7Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj7Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_7_spin.setAdapter(subj7Adapter);
+        subj_7_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_7 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         changeEmail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,13 +258,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Dashboard.class));
-            }
-        });
-
         // display data
         displayData();
 
@@ -109,7 +266,7 @@ public class Profile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     for (DataSnapshot s : snapshot.getChildren()) {
-                        ProfileModel profile = s.child("Profile").getValue(ProfileModel.class);
+                        ProfilePOJO profile = s.child("Profile").getValue(ProfilePOJO.class);
                         usersList.add(profile);
                     }
                 }
@@ -149,48 +306,22 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    // validate input data
-    private boolean validateSuburb() {
-        String value = suburb_et.getEditText().getText().toString().trim();
+
+    private boolean validateSchool() {
+        String value = school_et.getEditText().getText().toString().trim();
         if (value.isEmpty()) {
-            suburb_et.setError("Field cannot be empty");
-            suburb_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
+            school_et.setError("Field cannot be empty");
+            school_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
             return false;
         } else {
-            suburb_et.setError(null);
-            suburb_et.setErrorEnabled(false);
+            school_et.setError(null);
+            school_et.setErrorEnabled(false);
             return true;
         }
     }
 
-    private boolean validateStreet() {
-        String value = street_et.getEditText().getText().toString().trim();
-        if (value.isEmpty()) {
-            street_et.setError("Field cannot be empty");
-            street_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
-            return false;
-        } else {
-            street_et.setError(null);
-            street_et.setErrorEnabled(false);
-            return true;
-        }
-    }
 
-    // validate input data
-    private boolean validateCity() {
-        String value = city_et.getEditText().getText().toString().trim();
-        if (value.isEmpty()) {
-            city_et.setError("Field cannot be empty");
-            city_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
-            return false;
-        } else {
-            city_et.setError(null);
-            city_et.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private boolean validateCode() {
+    private boolean validateGrade() {
         String value = code_et.getEditText().getText().toString().trim();
         if (value.isEmpty()) {
             code_et.setError("Field cannot be empty");
@@ -203,25 +334,59 @@ public class Profile extends AppCompatActivity {
         }
     }
 
+    //validate province
+    private boolean validateProvince() {
+        if (province.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
+    private boolean validateSubjects() {
+        if (subj_1.isEmpty()||subj_2.isEmpty()||subj_3.isEmpty()||subj_4.isEmpty()||subj_5.isEmpty()||subj_6.isEmpty()||subj_7.isEmpty()) {
 
+            if (subj_1.isEmpty()) {
+                subj_1_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_2.isEmpty()) {
+                subj_2_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_3.isEmpty()) {
+                subj_3_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_4.isEmpty()) {
+                subj_4_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_5.isEmpty()) {
+                subj_5_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_6.isEmpty()) {
+                subj_6_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_7.isEmpty()) {
+                subj_7_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private void validate() {
-        if (!validateFirstName() | !validateLastName() | !validateStreet() | !validateSuburb() | !validateCity() | !validateCode()) {
+        if (!validateFirstName() | !validateLastName() | !validateSchool() | !validateGrade() | !validateProvince() | !validateSubjects()) {
             return;
         }
 
         String sfname = fname_et.getEditText().getText().toString();
         String slname = lname_et.getEditText().getText().toString();
-        String sstreet = street_et.getEditText().getText().toString();
-        String ssuburb = suburb_et.getEditText().getText().toString();
-        String scity = city_et.getEditText().getText().toString();
-        String scode = code_et.getEditText().getText().toString();
+        String sGrade = code_et.getEditText().getText().toString();
+        String sSchool = school_et.getEditText().getText().toString();
 
-        updateProfile(sfname, slname, sstreet, ssuburb, scity, scode);
+        updateProfile(sfname, slname, sSchool, sGrade, province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7);
     }
 
-    private void updateProfile(String sfname, String slname, String sstreet, String ssuburb, String scity, String scode) {
+    private void updateProfile(String sfname, String slname, String sSchool, String sGrade, String province, String subj_1, String subj_2, String subj_3, String subj_4, String subj_5, String subj_6, String subj_7) {
 
         progressDialog.setMessage("Updating your profile...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -230,10 +395,17 @@ public class Profile extends AppCompatActivity {
         HashMap<String, Object> update = new HashMap<>();
         update.put("FName", sfname);
         update.put("LName", slname);
-        update.put("Street", sstreet);
-        update.put("Suburb", ssuburb);
-        update.put("City", scity);
-        update.put("PostalCode", scode);
+        update.put("SchoolName", sSchool);
+        update.put("Province", province);
+        update.put("Grade", sGrade);
+        update.put("Subject_1", subj_1);
+        update.put("Subject_2", subj_2);
+        update.put("Subject_3", subj_3);
+        update.put("Subject_4", subj_4);
+        update.put("Subject_5", subj_5);
+        update.put("Subject_6", subj_6);
+        update.put("Subject_7", subj_7);
+
 
         dbref.child(userId).child("Profile").updateChildren(update)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -257,23 +429,49 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    ProfileModel profile = snapshot.getValue(ProfileModel.class);
+                    ProfilePOJO profile = snapshot.getValue(ProfilePOJO.class);
 
                     fname_et.getEditText().setText(profile.getFName());
                     lname_et.getEditText().setText(profile.getLName());
                     email_et.getEditText().setText(profile.getEmailAddress());
 
-                    if (profile.getStreet() != null) {
-                        street_et.getEditText().setText(profile.getStreet());
+                    if (profile.getGrade() != null) {
+                        code_et.getEditText().setText(profile.getGrade());
                     }
-                    if (profile.getSuburb() != null) {
-                        suburb_et.getEditText().setText(profile.getSuburb());
+                    if (profile.getProvince() != null) {
+                        int spinnerPosition = provinceAdapter.getPosition(profile.getProvince());
+                        province_spinner.setSelection(spinnerPosition);
                     }
-                    if (profile.getCity() != null) {
-                        city_et.getEditText().setText(profile.getCity());
+                    if (profile.getSchool_name() != null) {
+                        school_et.getEditText().setText(profile.getSchool_name());
                     }
-                    if (profile.getPostalCode() != null) {
-                        code_et.getEditText().setText(profile.getPostalCode());
+                    if (profile.getSubj_1() != null) {
+                        int spinnerPosition = subj1Adapter.getPosition(profile.getProvince());
+                        subj_1_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_2() != null) {
+                        int spinnerPosition = subj2Adapter.getPosition(profile.getProvince());
+                        subj_2_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_3() != null) {
+                        int spinnerPosition = subj3Adapter.getPosition(profile.getProvince());
+                        subj_3_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_4() != null) {
+                        int spinnerPosition = subj4Adapter.getPosition(profile.getProvince());
+                        subj_4_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_5() != null) {
+                        int spinnerPosition = subj5Adapter.getPosition(profile.getProvince());
+                        subj_5_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_6() != null) {
+                        int spinnerPosition = subj6Adapter.getPosition(profile.getProvince());
+                        subj_6_spin.setSelection(spinnerPosition);
+                    }
+                    if (profile.getSubj_7() != null) {
+                        int spinnerPosition = subj7Adapter.getPosition(profile.getProvince());
+                        subj_7_spin.setSelection(spinnerPosition);
                     }
                 } else {
                     Toast.makeText(Profile.this, "Error: No such user exists!", Toast.LENGTH_SHORT).show();
@@ -285,5 +483,9 @@ public class Profile extends AppCompatActivity {
                 Toast.makeText(Profile.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

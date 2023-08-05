@@ -152,7 +152,7 @@ public class Login extends AppCompatActivity {
                             if(auth.getCurrentUser().isEmailVerified()){
                                 progressDialog.dismiss();
 
-                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.putExtra("userID", userID);
                                 startActivity(intent);
                             }

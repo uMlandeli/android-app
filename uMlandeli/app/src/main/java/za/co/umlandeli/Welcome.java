@@ -106,7 +106,7 @@ public class Welcome extends AppCompatActivity {
                     if(auth.getCurrentUser().isEmailVerified()){
                         progressDialog.dismiss();
 
-                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         intent.putExtra("userID", userId);
                         startActivity(intent);
                         finish();
