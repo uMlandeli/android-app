@@ -10,6 +10,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string-array name="provinces">
+        <item>Select Province</item>
         <item>Limpopo</item>
         <item>Mpumalanga</item>
         <item>Gauteng</item>
@@ -52,6 +53,7 @@ Geography
 History
     -->
     <string-array name="subjects">
+        <item>Select Subject</item>
         <item>Sesotho</item>
         <item>Setswana</item>
         <item>Siswati</item>

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -70,6 +71,36 @@ public class Profile extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         dbref = FirebaseDatabase.getInstance().getReference("Users");
         userId = auth.getCurrentUser().getUid();
+
+        //Navigation Bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId(); // Get the selected item's ID
+
+            if (itemId == R.id.bottom_home) {
+                // Handle the Home case
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            } else if (itemId == R.id.bottom_profile) {
+                return true;
+            } else if (itemId == R.id.bottom_connect) {
+                startActivity(new Intent(getApplicationContext(), ConnectionsU.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            } else if (itemId == R.id.bottom_subjects) {
+                startActivity(new Intent(getApplicationContext(), SubjectsU.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            }
+
+            return false;
+        });
+        //End of Navigation Bar
 
         //Province Spinner
         provinceAdapter = ArrayAdapter.createFromResource(
@@ -336,7 +367,7 @@ public class Profile extends AppCompatActivity {
 
     //validate province
     private boolean validateProvince() {
-        if (province.isEmpty()) {
+        if (province.equalsIgnoreCase("Select Province")) {
             return false;
         } else {
             return true;
@@ -344,27 +375,27 @@ public class Profile extends AppCompatActivity {
     }
 
     private boolean validateSubjects() {
-        if (subj_1.isEmpty()||subj_2.isEmpty()||subj_3.isEmpty()||subj_4.isEmpty()||subj_5.isEmpty()||subj_6.isEmpty()||subj_7.isEmpty()) {
+        if (subj_1.equalsIgnoreCase("Select Subject")||subj_2.equalsIgnoreCase("Select Subject")||subj_3.equalsIgnoreCase("Select Subject")||subj_4.equalsIgnoreCase("Select Subject")||subj_5.equalsIgnoreCase("Select Subject")||subj_6.equalsIgnoreCase("Select Subject")||subj_7.equalsIgnoreCase("Select Subject")) {
 
-            if (subj_1.isEmpty()) {
+            if (subj_1.equalsIgnoreCase("Select Subject")) {
                 subj_1_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_2.isEmpty()) {
+            if (subj_2.equalsIgnoreCase("Select Subject")) {
                 subj_2_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_3.isEmpty()) {
+            if (subj_3.equalsIgnoreCase("Select Subject")) {
                 subj_3_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_4.isEmpty()) {
+            if (subj_4.equalsIgnoreCase("Select Subject")) {
                 subj_4_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_5.isEmpty()) {
+            if (subj_5.equalsIgnoreCase("Select Subject")) {
                 subj_5_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_6.isEmpty()) {
+            if (subj_6.equalsIgnoreCase("Select Subject")) {
                 subj_6_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
-            if (subj_7.isEmpty()) {
+            if (subj_7.equalsIgnoreCase("Select Subject")) {
                 subj_7_spin.setBackgroundColor(getResources().getColor(R.color.red));
             }
             return false;
@@ -395,6 +426,7 @@ public class Profile extends AppCompatActivity {
         HashMap<String, Object> update = new HashMap<>();
         update.put("FName", sfname);
         update.put("LName", slname);
+        update.put("emailAddress",email_et.getEditText().getText().toString());
         update.put("SchoolName", sSchool);
         update.put("Province", province);
         update.put("Grade", sGrade);
@@ -405,7 +437,7 @@ public class Profile extends AppCompatActivity {
         update.put("Subject_5", subj_5);
         update.put("Subject_6", subj_6);
         update.put("Subject_7", subj_7);
-
+        update.put("Uid",userId);
 
         dbref.child(userId).child("Profile").updateChildren(update)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -477,6 +509,60 @@ public class Profile extends AppCompatActivity {
                     Toast.makeText(Profile.this, "Error: No such user exists!", Toast.LENGTH_SHORT).show();
                 }
             }
+
+        /*DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // dataSnapshot contains the user's profile data
+                    String firstName = dataSnapshot.child("FName").getValue(String.class);
+                    String lastName = dataSnapshot.child("LName").getValue(String.class);
+                    String emailAddress = dataSnapshot.child("emailAddress").getValue(String.class);
+                    Integer grade_num = dataSnapshot.child("Grade").getValue(Integer.class);
+                    String province_name = dataSnapshot.child("Province").getValue(String.class);
+                    String SchoolName_name = dataSnapshot.child("SchoolName").getValue(String.class);
+                    String subject_one = dataSnapshot.child("Subject_1").getValue(String.class);
+                    String subject_two = dataSnapshot.child("Subject_2").getValue(String.class);
+                    String subject_three = dataSnapshot.child("Subject_3").getValue(String.class);
+                    String subject_four = dataSnapshot.child("Subject_4").getValue(String.class);
+                    String subject_five = dataSnapshot.child("Subject_5").getValue(String.class);
+                    String subject_six = dataSnapshot.child("Subject_6").getValue(String.class);
+                    String subject_seven = dataSnapshot.child("Subject_7").getValue(String.class);
+
+                    // ... Retrieve other data fields similarly
+
+                    // Now you can use these values to update your UI or perform other tasks
+                    fname_et.getEditText().setText(firstName);
+                    lname_et.getEditText().setText(lastName);
+                    email_et.getEditText().setText(emailAddress);
+                    code_et.getEditText().setText(grade_num);
+                    school_et.getEditText().setText(SchoolName_name);
+
+                    int ProvspinPos = provinceAdapter.getPosition(province_name);
+                    province_spinner.setSelection(ProvspinPos);
+
+                    int S1spinPos = subj1Adapter.getPosition(subject_one);
+                    subj_1_spin.setSelection(S1spinPos);
+                    int S2spinPos = subj2Adapter.getPosition(subject_two);
+                    subj_2_spin.setSelection(S2spinPos);
+                    int S3spinPos = subj3Adapter.getPosition(subject_three);
+                    subj_3_spin.setSelection(S3spinPos);
+                    int S4spinPos = subj4Adapter.getPosition(subject_four);
+                    subj_4_spin.setSelection(S4spinPos);
+                    int S5spinPos = subj5Adapter.getPosition(subject_five);
+                    subj_5_spin.setSelection(S5spinPos);
+                    int S6spinPos = subj6Adapter.getPosition(subject_six);
+                    subj_6_spin.setSelection(S6spinPos);
+                    int S7spinPos = subj7Adapter.getPosition(subject_seven);
+                    subj_7_spin.setSelection(S7spinPos);
+
+                }
+                else{
+
+
+                }
+            }*/
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

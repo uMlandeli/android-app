@@ -204,9 +204,8 @@ public class Register extends AppCompatActivity {
                             HashMap<String, Object> inputdata = new HashMap<>();
                             inputdata.put("FName", sfname);
                             inputdata.put("LName", slname);
-                            inputdata.put("EmailAddress", semail);
+                            inputdata.put("emailAddress", semail);
                             inputdata.put("Uid", userID);
-                            inputdata.put("Type", "customer");
 
                             insertdb.child(userID).child("Profile").updateChildren(inputdata)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
