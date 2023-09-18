@@ -39,11 +39,8 @@ public class Profile extends AppCompatActivity {
     DatabaseReference dbref;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
-    String userId, province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7;
-    ArrayAdapter<CharSequence> provinceAdapter, subj1Adapter, subj2Adapter, subj3Adapter, subj4Adapter, subj5Adapter, subj6Adapter, subj7Adapter;
-    Spinner province_spinner, subj_1_spin,subj_2_spin,subj_3_spin,subj_4_spin,subj_5_spin,subj_6_spin,subj_7_spin;
     List<ProfilePOJO> usersList = new ArrayList<>();
-
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +54,6 @@ public class Profile extends AppCompatActivity {
         email_et = findViewById(R.id.email);
         code_et = findViewById(R.id.grade);
         school_et = findViewById(R.id.school_name);
-        province_spinner = findViewById(R.id.province_spinner);
-        subj_1_spin = findViewById(R.id.subj_1);
-        subj_2_spin = findViewById(R.id.subj_2);
-        subj_3_spin = findViewById(R.id.subj_3);
-        subj_4_spin = findViewById(R.id.subj_4);
-        subj_5_spin = findViewById(R.id.subj_5);
-        subj_6_spin = findViewById(R.id.subj_6);
-        subj_7_spin = findViewById(R.id.subj_7);
         progressDialog = new ProgressDialog(this);
         alertDialog = new AlertDialog.Builder(this);
 
@@ -101,168 +90,6 @@ public class Profile extends AppCompatActivity {
             return false;
         });
         //End of Navigation Bar
-
-        //Province Spinner
-        provinceAdapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.provinces,
-                android.R.layout.simple_spinner_item
-        );
-        provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        province_spinner.setAdapter(provinceAdapter);
-        province_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                province = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //Subject 1 Spinner
-        subj1Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_1_spin.setAdapter(subj1Adapter);
-        subj_1_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_1 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
-        //Subject 2 Spinner
-        subj2Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_2_spin.setAdapter(subj2Adapter);
-        subj_2_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_2 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //Subject 3 Spinner
-        subj3Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_3_spin.setAdapter(subj3Adapter);
-        subj_3_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_3 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        //Subject 4 Spinner
-        subj4Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj4Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_4_spin.setAdapter(subj4Adapter);
-        subj_4_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_4 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //Subject 5 Spinner
-        subj5Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj5Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_5_spin.setAdapter(subj5Adapter);
-        subj_5_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_5 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //Subject 6 Spinner
-        subj6Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj6Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_6_spin.setAdapter(subj6Adapter);
-        subj_6_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_6 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //Subject 7 Spinner
-        subj7Adapter = ArrayAdapter.createFromResource(
-                this,
-                R.array.subjects,
-                android.R.layout.simple_spinner_item
-        );
-        subj7Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        subj_7_spin.setAdapter(subj7Adapter);
-        subj_7_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                subj_7 = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
 
         changeEmail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,47 +192,10 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    //validate province
-    private boolean validateProvince() {
-        if (province.equalsIgnoreCase("Select Province")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    private boolean validateSubjects() {
-        if (subj_1.equalsIgnoreCase("Select Subject")||subj_2.equalsIgnoreCase("Select Subject")||subj_3.equalsIgnoreCase("Select Subject")||subj_4.equalsIgnoreCase("Select Subject")||subj_5.equalsIgnoreCase("Select Subject")||subj_6.equalsIgnoreCase("Select Subject")||subj_7.equalsIgnoreCase("Select Subject")) {
-
-            if (subj_1.equalsIgnoreCase("Select Subject")) {
-                subj_1_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_2.equalsIgnoreCase("Select Subject")) {
-                subj_2_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_3.equalsIgnoreCase("Select Subject")) {
-                subj_3_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_4.equalsIgnoreCase("Select Subject")) {
-                subj_4_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_5.equalsIgnoreCase("Select Subject")) {
-                subj_5_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_6.equalsIgnoreCase("Select Subject")) {
-                subj_6_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            if (subj_7.equalsIgnoreCase("Select Subject")) {
-                subj_7_spin.setBackgroundColor(getResources().getColor(R.color.red));
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     private void validate() {
-        if (!validateFirstName() | !validateLastName() | !validateSchool() | !validateGrade() | !validateProvince() | !validateSubjects()) {
+        if (!validateFirstName() | !validateLastName() | !validateSchool() | !validateGrade()) {
             return;
         }
 
@@ -414,10 +204,10 @@ public class Profile extends AppCompatActivity {
         String sGrade = code_et.getEditText().getText().toString();
         String sSchool = school_et.getEditText().getText().toString();
 
-        updateProfile(sfname, slname, sSchool, sGrade, province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7);
+        updateProfile(sfname, slname, sSchool, sGrade);
     }
 
-    private void updateProfile(String sfname, String slname, String sSchool, String sGrade, String province, String subj_1, String subj_2, String subj_3, String subj_4, String subj_5, String subj_6, String subj_7) {
+    private void updateProfile(String sfname, String slname, String sSchool, String sGrade) {
 
         progressDialog.setMessage("Updating your profile...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -428,15 +218,7 @@ public class Profile extends AppCompatActivity {
         update.put("LName", slname);
         update.put("emailAddress",email_et.getEditText().getText().toString());
         update.put("SchoolName", sSchool);
-        update.put("Province", province);
         update.put("Grade", sGrade);
-        update.put("Subject_1", subj_1);
-        update.put("Subject_2", subj_2);
-        update.put("Subject_3", subj_3);
-        update.put("Subject_4", subj_4);
-        update.put("Subject_5", subj_5);
-        update.put("Subject_6", subj_6);
-        update.put("Subject_7", subj_7);
         update.put("Uid",userId);
 
         dbref.child(userId).child("Profile").updateChildren(update)
@@ -466,103 +248,12 @@ public class Profile extends AppCompatActivity {
                     fname_et.getEditText().setText(profile.getFName());
                     lname_et.getEditText().setText(profile.getLName());
                     email_et.getEditText().setText(profile.getEmailAddress());
-
-                    if (profile.getGrade() != null) {
-                        code_et.getEditText().setText(profile.getGrade());
-                    }
-                    if (profile.getProvince() != null) {
-                        int spinnerPosition = provinceAdapter.getPosition(profile.getProvince());
-                        province_spinner.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSchool_name() != null) {
-                        school_et.getEditText().setText(profile.getSchool_name());
-                    }
-                    if (profile.getSubj_1() != null) {
-                        int spinnerPosition = subj1Adapter.getPosition(profile.getProvince());
-                        subj_1_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_2() != null) {
-                        int spinnerPosition = subj2Adapter.getPosition(profile.getProvince());
-                        subj_2_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_3() != null) {
-                        int spinnerPosition = subj3Adapter.getPosition(profile.getProvince());
-                        subj_3_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_4() != null) {
-                        int spinnerPosition = subj4Adapter.getPosition(profile.getProvince());
-                        subj_4_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_5() != null) {
-                        int spinnerPosition = subj5Adapter.getPosition(profile.getProvince());
-                        subj_5_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_6() != null) {
-                        int spinnerPosition = subj6Adapter.getPosition(profile.getProvince());
-                        subj_6_spin.setSelection(spinnerPosition);
-                    }
-                    if (profile.getSubj_7() != null) {
-                        int spinnerPosition = subj7Adapter.getPosition(profile.getProvince());
-                        subj_7_spin.setSelection(spinnerPosition);
-                    }
+                    school_et.getEditText().setText(profile.getSchool_name());
+                    code_et.getEditText().setText(profile.getGrade());
                 } else {
                     Toast.makeText(Profile.this, "Error: No such user exists!", Toast.LENGTH_SHORT).show();
                 }
             }
-
-        /*DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId);
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // dataSnapshot contains the user's profile data
-                    String firstName = dataSnapshot.child("FName").getValue(String.class);
-                    String lastName = dataSnapshot.child("LName").getValue(String.class);
-                    String emailAddress = dataSnapshot.child("emailAddress").getValue(String.class);
-                    Integer grade_num = dataSnapshot.child("Grade").getValue(Integer.class);
-                    String province_name = dataSnapshot.child("Province").getValue(String.class);
-                    String SchoolName_name = dataSnapshot.child("SchoolName").getValue(String.class);
-                    String subject_one = dataSnapshot.child("Subject_1").getValue(String.class);
-                    String subject_two = dataSnapshot.child("Subject_2").getValue(String.class);
-                    String subject_three = dataSnapshot.child("Subject_3").getValue(String.class);
-                    String subject_four = dataSnapshot.child("Subject_4").getValue(String.class);
-                    String subject_five = dataSnapshot.child("Subject_5").getValue(String.class);
-                    String subject_six = dataSnapshot.child("Subject_6").getValue(String.class);
-                    String subject_seven = dataSnapshot.child("Subject_7").getValue(String.class);
-
-                    // ... Retrieve other data fields similarly
-
-                    // Now you can use these values to update your UI or perform other tasks
-                    fname_et.getEditText().setText(firstName);
-                    lname_et.getEditText().setText(lastName);
-                    email_et.getEditText().setText(emailAddress);
-                    code_et.getEditText().setText(grade_num);
-                    school_et.getEditText().setText(SchoolName_name);
-
-                    int ProvspinPos = provinceAdapter.getPosition(province_name);
-                    province_spinner.setSelection(ProvspinPos);
-
-                    int S1spinPos = subj1Adapter.getPosition(subject_one);
-                    subj_1_spin.setSelection(S1spinPos);
-                    int S2spinPos = subj2Adapter.getPosition(subject_two);
-                    subj_2_spin.setSelection(S2spinPos);
-                    int S3spinPos = subj3Adapter.getPosition(subject_three);
-                    subj_3_spin.setSelection(S3spinPos);
-                    int S4spinPos = subj4Adapter.getPosition(subject_four);
-                    subj_4_spin.setSelection(S4spinPos);
-                    int S5spinPos = subj5Adapter.getPosition(subject_five);
-                    subj_5_spin.setSelection(S5spinPos);
-                    int S6spinPos = subj6Adapter.getPosition(subject_six);
-                    subj_6_spin.setSelection(S6spinPos);
-                    int S7spinPos = subj7Adapter.getPosition(subject_seven);
-                    subj_7_spin.setSelection(S7spinPos);
-
-                }
-                else{
-
-
-                }
-            }*/
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

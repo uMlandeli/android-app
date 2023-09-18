@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +32,13 @@ public class Register extends AppCompatActivity {
 
     Button register_btn;
     TextView login_btn;
-    TextInputLayout fname_et, lname_et, email_et, password_et, confirmpassword_et;
+    TextInputLayout fname_et, lname_et, email_et, password_et, confirmpassword_et, code_et, school_et;
     DatabaseReference insertdb;
     FirebaseAuth auth;
     String userID;
+    String province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7;
+    ArrayAdapter<CharSequence> provinceAdapter, subj1Adapter, subj2Adapter, subj3Adapter, subj4Adapter, subj5Adapter, subj6Adapter, subj7Adapter;
+    Spinner province_spinner, subj_1_spin,subj_2_spin,subj_3_spin,subj_4_spin,subj_5_spin,subj_6_spin,subj_7_spin;
     ProgressDialog progressDialog;
 
     @Override
@@ -48,7 +54,16 @@ public class Register extends AppCompatActivity {
         password_et = findViewById(R.id.password);
         confirmpassword_et = findViewById(R.id.conpassword);
         progressDialog = new ProgressDialog(this);
-
+        province_spinner = findViewById(R.id.province_spinner);
+        subj_1_spin = findViewById(R.id.subj_1);
+        subj_2_spin = findViewById(R.id.subj_2);
+        subj_3_spin = findViewById(R.id.subj_3);
+        subj_4_spin = findViewById(R.id.subj_4);
+        subj_5_spin = findViewById(R.id.subj_5);
+        subj_6_spin = findViewById(R.id.subj_6);
+        subj_7_spin = findViewById(R.id.subj_7);
+        code_et = findViewById(R.id.grade);
+        school_et = findViewById(R.id.school_name);
         auth = FirebaseAuth.getInstance();
         insertdb = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -69,11 +84,172 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        //Spinners
+        //Province Spinner
+        provinceAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.provinces,
+                android.R.layout.simple_spinner_item
+        );
+        provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        province_spinner.setAdapter(provinceAdapter);
+        province_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                province = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 1 Spinner
+        subj1Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_1_spin.setAdapter(subj1Adapter);
+        subj_1_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_1 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        //Subject 2 Spinner
+        subj2Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_2_spin.setAdapter(subj2Adapter);
+        subj_2_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_2 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 3 Spinner
+        subj3Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj3Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_3_spin.setAdapter(subj3Adapter);
+        subj_3_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_3 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //Subject 4 Spinner
+        subj4Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj4Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_4_spin.setAdapter(subj4Adapter);
+        subj_4_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_4 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 5 Spinner
+        subj5Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj5Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_5_spin.setAdapter(subj5Adapter);
+        subj_5_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_5 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 6 Spinner
+        subj6Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj6Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_6_spin.setAdapter(subj6Adapter);
+        subj_6_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_6 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //Subject 7 Spinner
+        subj7Adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.subjects,
+                android.R.layout.simple_spinner_item
+        );
+        subj7Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        subj_7_spin.setAdapter(subj7Adapter);
+        subj_7_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                subj_7 = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //End of Spinners
     }
 
     private void validatefields() {
 
-        if (!validateFirstName() | !validateLastName() | !validateEmailAddress() | !validatePassword() | !validateConfirmPassword()) {
+        if (!validateFirstName() | !validateLastName() | !validateEmailAddress() | !validatePassword() | !validateConfirmPassword() | !validateSchool() | !validateGrade() | !validateProvince() | !validateSubjects()) {
             return;
         }
 
@@ -81,8 +257,9 @@ public class Register extends AppCompatActivity {
         String slname = lname_et.getEditText().getText().toString();
         String semail = email_et.getEditText().getText().toString();
         String spassword = password_et.getEditText().getText().toString();
-
-        registerUser(sfname, slname, semail, spassword);
+        String sGrade = code_et.getEditText().getText().toString();
+        String sSchool = school_et.getEditText().getText().toString();
+        registerUser(sfname, slname, semail, spassword, sGrade, sSchool);
 
     }
 
@@ -182,8 +359,71 @@ public class Register extends AppCompatActivity {
             return true;
         }
     }
+    //validate province
+    private boolean validateProvince() {
+        if (province.equalsIgnoreCase("Select Province")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-    private void registerUser(String sfname, String slname, String semail, String spassword) {
+    private boolean validateSubjects() {
+        if (subj_1.equalsIgnoreCase("Select Subject")||subj_2.equalsIgnoreCase("Select Subject")||subj_3.equalsIgnoreCase("Select Subject")||subj_4.equalsIgnoreCase("Select Subject")||subj_5.equalsIgnoreCase("Select Subject")||subj_6.equalsIgnoreCase("Select Subject")||subj_7.equalsIgnoreCase("Select Subject")) {
+
+            if (subj_1.equalsIgnoreCase("Select Subject")) {
+                subj_1_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_2.equalsIgnoreCase("Select Subject")) {
+                subj_2_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_3.equalsIgnoreCase("Select Subject")) {
+                subj_3_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_4.equalsIgnoreCase("Select Subject")) {
+                subj_4_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_5.equalsIgnoreCase("Select Subject")) {
+                subj_5_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_6.equalsIgnoreCase("Select Subject")) {
+                subj_6_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            if (subj_7.equalsIgnoreCase("Select Subject")) {
+                subj_7_spin.setBackgroundColor(getResources().getColor(R.color.red));
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean validateSchool() {
+        String value = school_et.getEditText().getText().toString().trim();
+        if (value.isEmpty()) {
+            school_et.setError("Field cannot be empty");
+            school_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
+            return false;
+        } else {
+            school_et.setError(null);
+            school_et.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+
+    private boolean validateGrade() {
+        String value = code_et.getEditText().getText().toString().trim();
+        if (value.isEmpty()) {
+            code_et.setError("Field cannot be empty");
+            code_et.setBoxStrokeErrorColor(getResources().getColorStateList(R.color.black));
+            return false;
+        } else {
+            code_et.setError(null);
+            code_et.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private void registerUser(String sfname, String slname, String semail, String spassword, String sGrade, String sSchool) {
 
         progressDialog.setMessage("Please wait while we process your registration");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -206,6 +446,16 @@ public class Register extends AppCompatActivity {
                             inputdata.put("LName", slname);
                             inputdata.put("emailAddress", semail);
                             inputdata.put("Uid", userID);
+                            inputdata.put("Province", province);
+                            inputdata.put("SchoolName", sSchool);
+                            inputdata.put("Grade", sGrade);
+                            inputdata.put("Subject_1", subj_1);
+                            inputdata.put("Subject_2", subj_2);
+                            inputdata.put("Subject_3", subj_3);
+                            inputdata.put("Subject_4", subj_4);
+                            inputdata.put("Subject_5", subj_5);
+                            inputdata.put("Subject_6", subj_6);
+                            inputdata.put("Subject_7", subj_7);
 
                             insertdb.child(userID).child("Profile").updateChildren(inputdata)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
