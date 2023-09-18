@@ -198,7 +198,6 @@ public class Profile extends AppCompatActivity {
         if (!validateFirstName() | !validateLastName() | !validateSchool() | !validateGrade()) {
             return;
         }
-
         String sfname = fname_et.getEditText().getText().toString();
         String slname = lname_et.getEditText().getText().toString();
         String sGrade = code_et.getEditText().getText().toString();
@@ -234,8 +233,6 @@ public class Profile extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 
     private void displayData() {
