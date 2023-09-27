@@ -24,7 +24,6 @@ public class ChangePassword extends AppCompatActivity {
     Button change_btn;
     ImageView back_btn;
     FirebaseAuth auth;
-    FirebaseDatabase dbref;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
     String userId;

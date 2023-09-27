@@ -1,15 +1,13 @@
 package za.co.umlandeli.model;
 
-public class Academic{
-    private String schoolProvince, schoolName, subject1,subject2, subject3, subject4, subject5, subject6, subject7;
-    private Integer grade;
+public class Academic {
+    private String subject1, subject2, subject3, subject4, subject5, subject6, subject7;
+    private Integer exercises, subj1_points, subj2_points, subj3_points, subj4_points, subj5_points, subj6_points, subj7_points, written;
+
     public Academic() {
     }
 
-    public Academic(String schoolProvince, String schoolName, String subject1, String subject2, String subject3, String subject4, String subject5, String subject6, String subject7, Integer grade) {
-
-        this.schoolProvince = schoolProvince;
-        this.schoolName = schoolName;
+    public Academic(String subject1, String subject2, String subject3, String subject4, String subject5, String subject6, String subject7, Integer exercises, Integer subj1_points, Integer subj2_points, Integer subj3_points, Integer subj4_points, Integer subj5_points, Integer subj6_points, Integer subj7_points, Integer written) {
         this.subject1 = subject1;
         this.subject2 = subject2;
         this.subject3 = subject3;
@@ -17,27 +15,39 @@ public class Academic{
         this.subject5 = subject5;
         this.subject6 = subject6;
         this.subject7 = subject7;
-        this.grade = grade;
+        this.exercises = exercises;
+        this.subj1_points = subj1_points;
+        this.subj2_points = subj2_points;
+        this.subj3_points = subj3_points;
+        this.subj4_points = subj4_points;
+        this.subj5_points = subj5_points;
+        this.subj6_points = subj6_points;
+        this.subj7_points = subj7_points;
+        this.written = written;
     }
 
-    public Integer getGrade() {
-        return grade;
+    public Integer getSubj6_points() {
+        return subj6_points;
     }
 
-    public String getSchoolProvince() {
-        return schoolProvince;
+    public void setSubj6_points(Integer subj6_points) {
+        this.subj6_points = subj6_points;
     }
 
-    public void setSchoolProvince(String schoolProvince) {
-        this.schoolProvince = schoolProvince;
+    public Integer getSubj7_points() {
+        return subj7_points;
     }
 
-    public String getSchoolName() {
-        return schoolName;
+    public void setSubj7_points(Integer subj7_points) {
+        this.subj7_points = subj7_points;
     }
 
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+    public Integer getWritten() {
+        return written;
+    }
+
+    public void setWritten(Integer written) {
+        this.written = written;
     }
 
     public String getSubject1() {
@@ -94,5 +104,53 @@ public class Academic{
 
     public void setSubject7(String subject7) {
         this.subject7 = subject7;
+    }
+
+    public Integer getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(Integer exercises) {
+        this.exercises = exercises;
+    }
+
+    public Integer getSubj1_points() {
+        return subj1_points;
+    }
+
+    public void setSubj1_points(Integer subj1_points) {
+        this.subj1_points = subj1_points;
+    }
+
+    public Integer getSubj2_points() {
+        return subj2_points;
+    }
+
+    public void setSubj2_points(Integer subj2_points) {
+        this.subj2_points = subj2_points;
+    }
+
+    public Integer getSubj3_points() {
+        return subj3_points;
+    }
+
+    public void setSubj3_points(Integer subj3_points) {
+        this.subj3_points = subj3_points;
+    }
+
+    public Integer getSubj4_points() {
+        return subj4_points;
+    }
+
+    public void setSubj4_points(Integer subj4_points) {
+        this.subj4_points = subj4_points;
+    }
+
+    public Integer getSubj5_points() {
+        return subj5_points;
+    }
+
+    public void setSubj5_points(Integer subj5_points) {
+        this.subj5_points = subj5_points;
     }
 }

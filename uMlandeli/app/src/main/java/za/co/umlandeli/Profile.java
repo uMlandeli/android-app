@@ -24,6 +24,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +44,7 @@ public class Profile extends AppCompatActivity {
     TextInputLayout fname_et, lname_et, email_et,code_et, school_et;
     Button update_btn, changeEmail_btn, changePassword_btn;
     FirebaseAuth auth;
+    FirebaseFirestore db;
     DatabaseReference dbref;
     ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
@@ -58,39 +67,11 @@ public class Profile extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this);
 
         auth = FirebaseAuth.getInstance();
-        dbref = FirebaseDatabase.getInstance().getReference("Users");
+        db = FirebaseFirestore.getInstance();
         userId = auth.getCurrentUser().getUid();
-
         //Navigation Bar
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_profile);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId(); // Get the selected item's ID
 
-            if (itemId == R.id.bottom_home) {
-                // Handle the Home case
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
-                return true;
-            } else if (itemId == R.id.bottom_profile) {
-                return true;
-            } else if (itemId == R.id.bottom_connect) {
-                startActivity(new Intent(getApplicationContext(), ConnectionsU.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
-                return true;
-            } else if (itemId == R.id.bottom_subjects) {
-                startActivity(new Intent(getApplicationContext(), SubjectsU.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                finish();
-                return true;
-            }
-
-            return false;
-        });
         //End of Navigation Bar
-
         changeEmail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,9 +115,23 @@ public class Profile extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
             }
         });
+        CollectionReference usersCollection = db.collection("users");
+        usersCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<ProfilePOJO> usersList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        ProfilePOJO profile = document.toObject(ProfilePOJO.class);
+                        usersList.add(profile);
+                    }
+                } else {
+                    Exception exception = task.getException();
+                    Toast.makeText(getApplicationContext(), "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
-
-
     // validate input data
     private boolean validateFirstName() {
         String valueName = fname_et.getEditText().getText().toString().trim();
@@ -150,7 +145,6 @@ public class Profile extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validateLastName() {
         String valueName = lname_et.getEditText().getText().toString().trim();
         if (valueName.isEmpty()) {
@@ -163,8 +157,6 @@ public class Profile extends AppCompatActivity {
             return true;
         }
     }
-
-
     private boolean validateSchool() {
         String value = school_et.getEditText().getText().toString().trim();
         if (value.isEmpty()) {
@@ -177,8 +169,6 @@ public class Profile extends AppCompatActivity {
             return true;
         }
     }
-
-
     private boolean validateGrade() {
         String value = code_et.getEditText().getText().toString().trim();
         if (value.isEmpty()) {
@@ -191,9 +181,6 @@ public class Profile extends AppCompatActivity {
             return true;
         }
     }
-
-
-
     private void validate() {
         if (!validateFirstName() | !validateLastName() | !validateSchool() | !validateGrade()) {
             return;
@@ -205,13 +192,12 @@ public class Profile extends AppCompatActivity {
 
         updateProfile(sfname, slname, sSchool, sGrade);
     }
-
     private void updateProfile(String sfname, String slname, String sSchool, String sGrade) {
 
         progressDialog.setMessage("Updating your profile...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
+        DocumentReference profileRef = db.collection("users").document(userId).collection("Profile").document("UserData");
         HashMap<String, Object> update = new HashMap<>();
         update.put("FName", sfname);
         update.put("LName", slname);
@@ -219,8 +205,7 @@ public class Profile extends AppCompatActivity {
         update.put("SchoolName", sSchool);
         update.put("Grade", sGrade);
         update.put("Uid",userId);
-
-        dbref.child(userId).child("Profile").updateChildren(update)
+        profileRef.set(update)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -234,13 +219,19 @@ public class Profile extends AppCompatActivity {
                     }
                 });
     }
-
     private void displayData() {
-        dbref.child(userId).child("Profile").addValueEventListener(new ValueEventListener() {
+        DocumentReference profileRef = db.collection("users").document(userId).collection("Profile").document("UserData");
+        profileRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ProfilePOJO profile = snapshot.getValue(ProfilePOJO.class);
+            public void onEvent(@NonNull DocumentSnapshot snapshot, @NonNull FirebaseFirestoreException error) {
+                if (error != null) {
+                    // Handle errors
+                    Toast.makeText(Profile.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    ProfilePOJO profile = snapshot.toObject(ProfilePOJO.class);
 
                     fname_et.getEditText().setText(profile.getFName());
                     lname_et.getEditText().setText(profile.getLName());
@@ -250,11 +241,6 @@ public class Profile extends AppCompatActivity {
                 } else {
                     Toast.makeText(Profile.this, "Error: No such user exists!", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Profile.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

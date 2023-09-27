@@ -31,7 +31,6 @@ public class Login extends AppCompatActivity {
     Button login_btn;
     TextView reg_btn, forgotPassword;
     CheckBox checkBox;
-    DatabaseReference db;
     FirebaseAuth auth;
     String userID;
     ProgressDialog progressDialog;
@@ -51,10 +50,7 @@ public class Login extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         alertDialog = new AlertDialog.Builder(this);
         Paper.init(this);
-
         auth = FirebaseAuth.getInstance();
-        db = FirebaseDatabase.getInstance().getReference();
-
         // set button on click
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +191,5 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 }

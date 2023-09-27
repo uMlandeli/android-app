@@ -23,9 +23,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
-
+import java.util.Map;
 
 
 public class Register extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class Register extends AppCompatActivity {
     TextView login_btn;
     TextInputLayout fname_et, lname_et, email_et, password_et, confirmpassword_et, code_et, school_et;
     DatabaseReference insertdb;
+    FirebaseFirestore db;
     FirebaseAuth auth;
     String userID;
     String province, subj_1, subj_2, subj_3, subj_4, subj_5, subj_6, subj_7;
@@ -66,6 +69,7 @@ public class Register extends AppCompatActivity {
         school_et = findViewById(R.id.school_name);
         auth = FirebaseAuth.getInstance();
         insertdb = FirebaseDatabase.getInstance().getReference("Users");
+        db = FirebaseFirestore.getInstance();
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -436,37 +440,38 @@ public class Register extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            // this line will send a verification storeEmail
+                            // This line will send a verification email
                             auth.getCurrentUser().sendEmailVerification();
 
                             userID = auth.getCurrentUser().getUid();
 
-                            HashMap<String, Object> inputdata = new HashMap<>();
-                            inputdata.put("FName", sfname);
-                            inputdata.put("LName", slname);
-                            inputdata.put("emailAddress", semail);
-                            inputdata.put("Uid", userID);
-                            inputdata.put("Province", province);
-                            inputdata.put("SchoolName", sSchool);
-                            inputdata.put("Grade", sGrade);
-                            inputdata.put("Subject_1", subj_1);
-                            inputdata.put("Subject_2", subj_2);
-                            inputdata.put("Subject_3", subj_3);
-                            inputdata.put("Subject_4", subj_4);
-                            inputdata.put("Subject_5", subj_5);
-                            inputdata.put("Subject_6", subj_6);
-                            inputdata.put("Subject_7", subj_7);
+                            // Create a document reference for the user
+                            DocumentReference userRef = db.collection("users").document(userID).collection("Profile").document("UserData");
 
-                            insertdb.child(userID).child("Profile").updateChildren(inputdata)
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("FName", sfname);
+                            userData.put("LName", slname);
+                            userData.put("emailAddress", semail);
+                            userData.put("Uid", userID);
+                            userData.put("Province", province);
+                            userData.put("SchoolName", sSchool);
+                            userData.put("Grade", sGrade);
+                            userData.put("Subject_1", subj_1);
+                            userData.put("Subject_2", subj_2);
+                            userData.put("Subject_3", subj_3);
+                            userData.put("Subject_4", subj_4);
+                            userData.put("Subject_5", subj_5);
+                            userData.put("Subject_6", subj_6);
+                            userData.put("Subject_7", subj_7);
+
+                            userRef.set(userData)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-
                                                 progressDialog.dismiss();
                                                 startActivity(new Intent(getApplicationContext(), Login.class));
                                                 finish();
-
                                             } else {
                                                 progressDialog.dismiss();
                                                 Toast.makeText(Register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -478,9 +483,7 @@ public class Register extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(Register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-
     }
 }

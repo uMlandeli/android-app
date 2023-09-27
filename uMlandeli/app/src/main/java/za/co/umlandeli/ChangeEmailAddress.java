@@ -21,6 +21,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -33,7 +36,7 @@ public class ChangeEmailAddress extends AppCompatActivity {
     ProgressDialog progressDialog;
     AlertDialog.Builder alertDialog;
     DatabaseReference insertdb;
-
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class ChangeEmailAddress extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this);
         auth = FirebaseAuth.getInstance();
         insertdb = FirebaseDatabase.getInstance().getReference();
-
+        db = FirebaseFirestore.getInstance();
         changeEmail_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,8 +87,10 @@ public class ChangeEmailAddress extends AppCompatActivity {
         progressDialog.setMessage("Please wait while we change your email address!");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
         String userID = auth.getCurrentUser().getUid();
+
+        CollectionReference usersCollection = db.collection("users");
+        DocumentReference userDocRef = usersCollection.document(userID).collection("Profile").document("UserData");
 
         auth.getCurrentUser().updateEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -98,7 +103,8 @@ public class ChangeEmailAddress extends AppCompatActivity {
                             // update email address in database
                             HashMap<String, Object> inputdata = new HashMap<>();
                             inputdata.put("EmailAddress", email);
-                            insertdb.child("Users").child(userID).child("Profile").updateChildren(inputdata)
+
+                            userDocRef.update(inputdata)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
